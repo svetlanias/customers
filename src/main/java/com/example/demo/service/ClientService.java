@@ -45,7 +45,6 @@ public class ClientService {
         if (request.getFullName() != null) client.setFullName(request.getFullName());
         if (request.getGender() != null) client.setGender(request.getGender());
         if (request.getStatus() != null) client.setStatus(request.getStatus());
-        // saveAndFlush, чтобы @PreUpdate отработал и modifyDttm обновился до формирования ответа
         return toResponse(repository.saveAndFlush(client));
     }
 
