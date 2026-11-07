@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.dto.ActiveClientsResponse;
 import com.example.demo.dto.ClientCreateRequest;
 import com.example.demo.dto.ClientResponse;
 import com.example.demo.dto.ClientUpdateRequest;
@@ -43,5 +44,11 @@ public class ClientController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable Long id) {
         service.delete(id);
+    }
+
+    @GetMapping("/active")
+    public ActiveClientsResponse getAllActive() {
+
+        return service.getAllActive();
     }
 }

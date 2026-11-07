@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import com.example.demo.dto.ActiveClientsResponse;
 import com.example.demo.dto.ClientCreateRequest;
 import com.example.demo.dto.ClientResponse;
 import com.example.demo.dto.ClientUpdateRequest;
@@ -11,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -67,5 +69,23 @@ public class ClientService {
                 .createDttm(c.getCreateDttm())
                 .modifyDttm(c.getModifyDttm())
                 .build();
+    }
+
+    public ActiveClientsResponse getAllActive() {
+        List<ClientAccount>activeClients = repository.findAll();
+
+        List<ClientResponse>active = new ArrayList<>();
+        long count=0;
+
+        for(ClientAccount clientAccount : activeClients)
+        {
+            if(clientAccount.getStatus() == Status.ACTIVE) {
+                active.add(toResponse(clientAccount));
+                count++;
+            }
+        }
+
+
+        return new ActiveClientsResponse(active, count);
     }
 }
